@@ -1,5 +1,6 @@
 # NetLogo
 .urban-fire.tmp.nlogo
+*.tmp.nlogo
 
 # Logs
 logs
