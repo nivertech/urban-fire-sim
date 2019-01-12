@@ -39,35 +39,43 @@ to setup
   ;; set tree counts
   set initial-trees count patches with [pcolor = green]
   set burned-trees 0
+
   reset-ticks
 end
 
 to go
-  if not any? turtles  ;; either fires or embers
-    [ stop ]
-  ask fires
-    [ ask neighbors4 with [pcolor = green]
-        [ ignite ]
-      set breed embers ]
+  ;; either fires or embers
+  if not any? turtles [
+    stop
+  ]
+  ask fires [
+    ask neighbors4 with [pcolor = green] [
+      ignite
+    ]
+    set breed embers
+  ]
   fade-embers
   tick
 end
 
 ;; creates the fire turtles
 to ignite  ;; patch procedure
-  sprout-fires 1
-    [ set color red ]
+  sprout-fires 1 [
+    set color red
+  ]
   set pcolor black
   set burned-trees burned-trees + 1
 end
 
 ;; achieve fading color effect for the fire as it burns
 to fade-embers
-  ask embers
-    [ set color color - 0.3  ;; make red darker
-      if color < red - 3.5     ;; are we almost at black?
-        [ set pcolor color
-          die ] ]
+  ask embers [
+    set color color - 0.3  ;; make red darker
+    if color < red - 3.5 [ ;; are we almost at black?
+      set pcolor color
+      die
+    ]
+  ]
 end
 
 
